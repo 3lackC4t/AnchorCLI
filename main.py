@@ -6,7 +6,7 @@ import yaml
 
 class Anchors:
   def __init__(self) -> None:
-    self.anchor_path = os.path.join('/etc/opt/', 'Anchors.yml')
+    self.anchor_path = os.path.join('/etc/opt/AnchorCLI', 'Anchors.yml')
     try:
       with open(self.anchor_path, 'r') as anchors:
         self.anchors = yaml.safe_load(anchors)
@@ -29,7 +29,8 @@ class Anchors:
           with open(self.anchor_path, 'a') as anchors:
             anchors.write(yaml.safe_dump(self.default_config))
     else:
-      print('anchor.yml does not exist, configuring anchor.yml...')      
+      print('anchor.yml does not exist, configuring anchor.yml...')    
+      os.system('mkdir /etc/opt/AnchorCLI')
       with open(self.anchor_path, 'w') as anchors:
         anchors.write(yaml.safe_dump(self.default_config))
 
