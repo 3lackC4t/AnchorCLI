@@ -6,10 +6,10 @@ import yaml
 
 class Anchors:
   def __init__(self) -> None:
-    self.anchor_path = os.path.join('/etc/opt/AnchorCLI', 'Anchors.yml')
     try:
-      with open(self.anchor_path, 'r') as anchors:
+      with open('/etc/opt/AnchorCLI/Anchors.yml', 'r') as anchors:
         self.anchors = yaml.safe_load(anchors)
+        self.anchor_path = os.path.join('/etc/opt/AnchorCLI', 'Anchors.yml')
     except FileNotFoundError:
       self.create_config()
 
@@ -18,21 +18,11 @@ class Anchors:
                             {'alias':'config', 'path':'~/.config'}]
 
   def create_config(self):
-    if os.path.exists(self.anchor_path):
-      print("anchor.yml already exists. Checking for configurations...")
-      with open(self.anchor_path, 'r') as anchors:
-        if yaml.safe_load(anchors):
-          print("Configurations found. Skipping creation of anchor.yml")
-          exit()
-        else:
-          print('No configuration found. Configuring anchors.yml')
-          with open(self.anchor_path, 'a') as anchors:
-            anchors.write(yaml.safe_dump(self.default_config))
-    else:
-      print('anchor.yml does not exist, configuring anchor.yml...')    
-      os.system('mkdir /etc/opt/AnchorCLI')
-      with open(self.anchor_path, 'w') as anchors:
-        anchors.write(yaml.safe_dump(self.default_config))
+    print('anchor.yml does not exist, configuring anchor.yml...')    
+    os.system('sudo mkdir /etc/opt/AnchorCLI')
+    self.anchor_path = '/etc/opt/AnchorCLI/Anchors.yml'
+    with open(self.anchor_path, 'w') as anchors:
+      anchors.write(yaml.safe_dump(self.default_config))
 
   def print_anchor_list(self):
     with open(self.anchor_path) as anchors:
