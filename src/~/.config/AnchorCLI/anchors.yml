@@ -1,0 +1,4 @@
+- alias: home
+  path: ~/
+- alias: config
+  path: ~/.config

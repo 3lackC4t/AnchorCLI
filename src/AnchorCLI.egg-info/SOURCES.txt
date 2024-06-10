@@ -1,0 +1,13 @@
+LICENSE
+MANIFEST.in
+README.md
+setup.py
+src/Application.py
+src/__init__.py
+src/__main__.py
+src/AnchorCLI.egg-info/PKG-INFO
+src/AnchorCLI.egg-info/SOURCES.txt
+src/AnchorCLI.egg-info/dependency_links.txt
+src/AnchorCLI.egg-info/entry_points.txt
+src/AnchorCLI.egg-info/requires.txt
+src/AnchorCLI.egg-info/top_level.txt

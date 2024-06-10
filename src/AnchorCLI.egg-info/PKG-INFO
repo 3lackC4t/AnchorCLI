@@ -1,0 +1,14 @@
+Metadata-Version: 2.1
+Name: AnchorCLI
+Version: 0.0.1
+Summary: Manage shortcuts to directories in order to quickly navigate a filesystem
+Home-page: https://github.com/3lackC4t/AnchorCLI.git
+Author: Cameron Minty
+Author-email: C.S.Minty@proton.me
+License: GNU General Public License
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pyyaml>=6.0.1

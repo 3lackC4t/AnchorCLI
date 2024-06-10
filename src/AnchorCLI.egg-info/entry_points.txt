@@ -1,0 +1,2 @@
+[console_scripts]
+ancr = AnchorCLI:cli
