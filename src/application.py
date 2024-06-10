@@ -32,10 +32,54 @@ class Anchor:
     def anchor_add(self, alias: str, path: str):
         pass
 
-def initialize():
-    pass
+    def list_anchors(self):
+        for index, anchor in enumerate(self.current_anchors):
+            print(f"Anchor {index}: Alias: {anchor['alias']} Path: {anchor['path']}")
+
+    def reset_anchors(self):
+        with open(self.anchor_path, 'w') as anchors:
+            anchors.write(yaml.safe_dump(self.default_anchors))
+        
+        with open(self.anchor_path, 'r') as anchors:
+            self.current_anchors = yaml.safe_load(anchors)
+
+    def set_default_anchors(self, anchor_args):
+        new_default = []
+        for arg in anchor_args:
+            new_default.append(arg)
+
+        self.default_anchors = new_default
+
+
+def build_parser():
+    parser = argparse.ArgumentParser(
+        prog='AnchorCLI',
+        description='''
+        A tool for easily executing shell commands in directories using easy to remember and user
+        configurable aliases.
+        '''
+        )
+    parser.add_argument('-a', '--alias', 
+                       action='store', 
+                       type=str, 
+                       help='the alias for where the command will be executed')
+    parser.add_argument('-c', '--command',
+                       action='store',
+                       type=str,
+                       help='the command to be executed')
+    parser.add_argument('-R', '--reset',
+                       action='store_true',
+                       help='reset the default anchors list')
+    parser.add_argument('-A', '--add',
+                       action='store',
+                       type=str,
+                       default=f'{os.getcwd()}')
+
+    args = parser.parse_args()
+    return args
+
 
 def main():
+    args = build_parser()
     anchor = Anchor()
-    anchor.do_anchor('home', 'ls -a')
-
+    anchor.do_anchor(args.alias, args.command)
