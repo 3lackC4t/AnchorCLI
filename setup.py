@@ -6,7 +6,7 @@ with open('requirements.txt', 'r', encoding='utf-8') as fh:
     requirements = fh.read()
 
 setup (
-    name = "main",
+    name = "AnchorCLI",
     version = "0.0.1",
     author = "Cameron Minty",
     author_email = "C.S.Minty@proton.me",
