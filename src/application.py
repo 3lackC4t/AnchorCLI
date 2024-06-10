@@ -20,13 +20,16 @@ class Anchor:
         with open(self.anchor_path, 'r') as anchors:
             self.current_anchors = yaml.safe_load(anchors)
 
-    def anchor_move(self, alias):
-        for anchor in self.current_anchors:
-            if anchor['alias'] == alias:
-                print(anchor['path'])
-                os.chdir(anchor['path'])
+    def do_anchor(self, alias: str, command: str):
+        try:
+            for anchor in self.current_anchors:
+                if anchor['alias'] == alias:
+                    os.chdir(anchor['path'])
+                    os.system(f'{command}')
+        except PermissionError as PermErr:
+            print('Permission denied, command must be run as root')
 
-    def anchor_add(self, alias, path):
+    def anchor_add(self, alias: str, path: str):
         pass
 
 def initialize():
@@ -34,7 +37,5 @@ def initialize():
 
 def main():
     anchor = Anchor()
-    print(os.getcwd())
-    anchor.anchor_move('config')
-    print(os.getcwd())
+    anchor.do_anchor('home', 'ls -a')
 
