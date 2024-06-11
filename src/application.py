@@ -29,8 +29,9 @@ class Anchor:
         except PermissionError as PermErr:
             print('Permission denied, command must be run as root')
 
-    def anchor_add(self, alias: str, path: str):
-        pass
+    def anchor_add(self, path: str, alias: str):
+        with open(self.anchor_path, 'a') as anchors:
+            anchors.write(yaml.safe_dump({'alias': f'{alias}', 'path': f'{path}'}))
 
     def list_anchors(self):
         for index, anchor in enumerate(self.current_anchors):
@@ -59,21 +60,30 @@ def build_parser():
         configurable aliases.
         '''
         )
-    parser.add_argument('-a', '--alias', 
-                       action='store', 
-                       type=str, 
-                       help='the alias for where the command will be executed')
-    parser.add_argument('-c', '--command',
-                       action='store',
-                       type=str,
-                       help='the command to be executed')
-    parser.add_argument('-R', '--reset',
-                       action='store_true',
-                       help='reset the default anchors list')
-    parser.add_argument('-A', '--add',
-                       action='store',
-                       type=str,
-                       default=f'{os.getcwd()}')
+
+    general = parser.add_argument_group('group')
+    yml_config = parser.add_mutually_exclusive_group()
+
+    yml_config.add_argument('-n', '--new',
+                        type=str,
+                        action='store',
+                        nargs=2,
+                        default=f"{os.getcwd()}",
+                        help='''Takes two arguments, an alias and a filepath, 
+                                and stores it in anchors.yml''')
+    yml_config.add_argument('-r', '--remove',
+                            type=str,
+                            action='store',
+                            help='remove an anchor from anchors.yml')
+    general.add_argument('do',
+                        type=str,
+                        action='store',
+                        nargs=2,
+                        help='''takes two arguments, an alias and a command, 
+                                and executes the command in the chosen directory''')
+    yml_config.add_argument('-l', '--list',
+                         action='store_true',
+                         help='lists currently saved anchors')
 
     args = parser.parse_args()
     return args
@@ -82,4 +92,7 @@ def build_parser():
 def main():
     args = build_parser()
     anchor = Anchor()
-    anchor.do_anchor(args.alias, args.command)
+    print(args)
+    anchor.do_anchor(args.do[0], args.do[1])
+   
+
