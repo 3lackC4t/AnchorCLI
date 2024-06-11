@@ -28,7 +28,7 @@ class Anchor:
         except PermissionError as PermErr:
             print('Permission denied, command must be run as root')
 
-    def add_anchor(self, alias: str, path: str):
+    def add_anchor(self, alias: str, path=os.getcwd()):
         self.current_anchors.append({'alias': f'{alias}', 'path': f'{path}'})
         with open(self.anchor_path, 'w') as anchors:
             anchors.write(yaml.safe_dump(self.current_anchors))
