@@ -1,3 +1,5 @@
+#! usr/bin/env python
+
 import argparse
 import os
 import yaml
@@ -90,7 +92,7 @@ def main():
 
     if args.add:
         alias, path = args.add
-        anchor.add_anchor(alias, path)
+        anchor.add_anchor(alias, path=os.getcwd())
     elif args.reset:
         anchor.reset_anchors()
         print("anchors.yml reset to program defaults. See documentation for details")

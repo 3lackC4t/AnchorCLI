@@ -7,7 +7,7 @@ with open('requirements.txt', 'r', encoding='utf-8') as fh:
 
 setup (
     name = "AnchorCLI",
-    version = "0.0.1",
+    version = "0.0.2",
     author = "Cameron Minty",
     author_email = "C.S.Minty@proton.me",
     license = 'GNU General Public License',
@@ -15,7 +15,7 @@ setup (
     long_description = long_description,
     long_description_content_type = "text/markdown",
     url = 'https://github.com/3lackC4t/AnchorCLI.git',
-    packages = ['src'], 
+    packages = ['app'], 
     install_requires = [requirements],
     python_requires = '>=3.7',
     classifiers = [
@@ -24,7 +24,7 @@ setup (
     ],
     entry_points = {
         'console_scripts': [
-            'ancr = src.application:main'
+            'ancr = app.__main__:main'
         ],
     },
     )
