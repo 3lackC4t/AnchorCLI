@@ -121,4 +121,4 @@ Thumbs.db
 *.tar.gz
 pkg/
 src/
-*.pkg.tar.gz
+*.pkg.tar.zst
